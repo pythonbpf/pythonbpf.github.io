@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PythonBPF</title>
+<meta name="description" content="Write eBPF programs in Python. A compiler from Python to BPF object files, built on LLVM.">
+<meta name="theme-color" content="#1c3d5c">
+<meta property="og:title" content="PythonBPF">
+<meta property="og:description" content="Write eBPF programs in Python.">
+<meta property="og:image" content="https://pythonbpf.github.io/assets/logo.png">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="brand">
+      <img src="assets/logo.png" alt="" width="84" height="84">
+      <div>
+        <h1 style="margin:0"><svg class="wordmark" viewBox="580 180 800 148" role="img" aria-label="PythonBPF"><path fill="currentColor" d="m588.2 293h13.2v-39.8h23.9c25.4 0 36.8-15.5 36.8-34.8 0-19.3-11.4-34.5-37-34.5h-36.9zm13.2-51.6v-45.8h23.2c17.8 0 24.5 9.7 24.5 22.8 0 13.1-6.7 23-24.2 23zm88.1 82.3c11.4 0 19.4-6 24.1-18.8l34.7-93.7h-13.6l-22.6 65.2h-0.8l-22.6-65.2h-13.6l30.2 82.2-2.3 6.4c-4.6 12.5-10.3 13.7-19.4 11.3l-3.2 11.1c1.3 0.6 4.9 1.5 9.1 1.5zm111.5-112.5h-17.4v-19.6h-12.6v19.6h-12.4v10.6h12.4v51.2c0 14.3 11.5 21.1 22.1 21.1 4.7 0 7.7-0.9 9.4-1.5l-2.5-11.3c-1.1 0.2-2.8 0.6-5.6 0.6-5.5 0-10.8-1.7-10.8-12.3v-47.8h17.4zm33 32.6c0-14.2 9.1-22.3 21.5-22.3 11.9 0 19 7.4 19 20.4v51.2h12.6v-52c0-21.1-11.2-30.9-27.9-30.9-12.9 0-20.3 5.4-24.1 13.8h-1.1v-40h-12.6v109.1h12.6zm109.7 50.9c22.1 0 37.1-16.8 37.1-42.2 0-25.6-15-42.4-37.1-42.4-22.2 0-37.1 16.8-37.1 42.4 0 25.4 14.9 42.2 37.1 42.2zm0-11.3c-16.9 0-24.5-14.5-24.5-30.9 0-16.4 7.6-31.1 24.5-31.1 16.8 0 24.5 14.7 24.5 31.1 0 16.4-7.7 30.9-24.5 30.9zm68.3-39.6c0-14.3 8.9-22.4 20.9-22.4 11.7 0 18.7 7.6 18.7 20.4v51.2h12.6v-52c0-20.9-11.1-30.9-27.7-30.9-12.3 0-20 5.5-23.8 13.8h-1.1v-12.7h-12.2v81.8h12.6zm77.1 49.2h39.5c25.7 0 36.4-12.6 36.4-29 0-17.2-11.9-26.6-21.9-27.3v-1c9.3-2.6 17.6-8.8 17.6-22.8 0-16-10.6-29-33.4-29h-38.2zm13.3-11.7v-37.9h26.8c14.3 0 23.2 9.6 23.2 20.6 0 9.6-6.6 17.3-23.8 17.3zm0-49.4v-36.3h24.9c14.5 0 20.9 7.7 20.9 17.3 0 11.5-9.4 19-21.3 19zm84.8 61.1h13.2v-39.8h23.8c25.4 0 36.9-15.5 36.9-34.8 0-19.2-11.5-34.5-37.1-34.5h-36.8zm13.2-51.5v-45.9h23.2c17.7 0 24.5 9.7 24.5 22.8 0 13.1-6.8 23.1-24.3 23.1zm81.8 51.5h13.2v-48.8h47.3v-11.7h-47.3v-36.9h52.2v-11.7h-65.4z"/></svg></h1>
+        <p>Write eBPF programs in Python.</p>
+      </div>
+    </div>
+    <nav>
+      <a href="#playground">Playground</a>
+      <a href="#docs">Docs</a>
+      <a href="#talks">Talks</a>
+      <a href="#authors">Authors</a>
+      <a class="out" href="https://github.com/pythonbpf/Python-BPF">GitHub</a>
+      <a class="out" href="https://pypi.org/project/pythonbpf/">PyPI</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section>
+  <div class="wrap cols intro">
+    <div>
+      <p>PythonBPF is a compiler for eBPF programs. You write the kernel side as
+      ordinary Python functions with a few decorators, and it emits LLVM IR (via
+      <a href="https://github.com/numba/llvmlite">llvmlite</a>) and then a BPF object
+      file. There is no C, and it doesn't use BCC.</p>
+      <p><a href="https://github.com/pythonbpf/pylibbpf">pylibbpf</a> loads and attaches
+      the result, so the whole thing can live in one script. The example here
+      prints a line every time something calls <code>execve</code>.</p>
+      <p>Maps, structs, helpers, loops and calls between functions all work. There
+      are still gaps, so <a href="https://github.com/pythonbpf/Python-BPF/issues">bug reports</a>
+      are welcome.</p>
+    </div>
+    <div>
+<pre><code><span class="k">from</span> pythonbpf <span class="k">import</span> bpf, section, bpfglobal, BPF, trace_pipe
+<span class="k">from</span> ctypes <span class="k">import</span> c_void_p, c_int64
+
+<span class="d">@bpf</span>
+<span class="d">@section</span>(<span class="s">"tracepoint/syscalls/sys_enter_execve"</span>)
+<span class="k">def</span> <span class="f">hello_world</span>(ctx: c_void_p) -&gt; c_int64:
+    <span class="n">print</span>(<span class="s">"Hello, World!"</span>)
+    <span class="k">return</span> 0
+
+<span class="d">@bpf</span>
+<span class="d">@bpfglobal</span>
+<span class="k">def</span> <span class="f">LICENSE</span>() -&gt; <span class="n">str</span>:
+    <span class="k">return</span> <span class="s">"GPL"</span>
+
+b = BPF()
+b.load()
+b.attach_all()
+trace_pipe()</code></pre>
+<pre><code><span class="p">$ </span>pip install pythonbpf pylibbpf
+<span class="p">$ </span>sudo python3 hello_world.py</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="blue" id="playground">
+  <div class="wrap">
+    <h2>Try it</h2>
+    <div class="frame">
+      <div class="bar">pythonbpf.xeon.me</div>
+      <iframe src="https://pythonbpf.xeon.me/" title="PythonBPF playground" loading="lazy"
+        allow="clipboard-write" referrerpolicy="no-referrer"></iframe>
+    </div>
+    <p class="frame-alt">The playground needs a wider screen than this.
+      <a href="https://pythonbpf.xeon.me">Open it in its own tab</a>.</p>
+    <p class="caption">Each run gets its own Firecracker microVM, so you don't need root or a
+      recent kernel. It's a shared machine, so you may have to queue.
+      <a href="https://pythonbpf.xeon.me">Open full screen</a> ·
+      <a href="https://github.com/pythonbpf/pythonbpf-playground">source</a></p>
+  </div>
+</section>
+
+<section id="docs">
+  <div class="wrap cols">
+    <div>
+      <h2>Documentation</h2>
+      <ul>
+        <li><a href="https://python-bpf.readthedocs.io/en/latest/getting-started/installation.html">Installation</a>
+          and <a href="https://python-bpf.readthedocs.io/en/latest/getting-started/quickstart.html">quick start</a></li>
+        <li>User guide:
+          <a href="https://python-bpf.readthedocs.io/en/latest/user-guide/decorators.html">decorators</a>,
+          <a href="https://python-bpf.readthedocs.io/en/latest/user-guide/maps.html">maps</a>,
+          <a href="https://python-bpf.readthedocs.io/en/latest/user-guide/structs.html">structs</a>,
+          <a href="https://python-bpf.readthedocs.io/en/latest/user-guide/helpers.html">helpers</a>,
+          <a href="https://python-bpf.readthedocs.io/en/latest/user-guide/compilation.html">compilation</a></li>
+        <li><a href="https://python-bpf.readthedocs.io/en/latest/api/index.html">API reference</a></li>
+        <li><a href="https://github.com/pythonbpf/Python-BPF/tree/master/examples">Examples</a> in the repo</li>
+      </ul>
+    </div>
+    <div id="repos">
+      <h2>Repositories</h2>
+      <dl>
+        <dt><a href="https://github.com/pythonbpf/Python-BPF">Python-BPF</a></dt>
+        <dd>The compiler. <span class="small"><a href="https://pypi.org/project/pythonbpf/">pythonbpf</a> on PyPI</span></dd>
+        <dt><a href="https://github.com/pythonbpf/pylibbpf">pylibbpf</a></dt>
+        <dd>libbpf bindings, used to load and attach programs and read maps.
+          <span class="small"><a href="https://pypi.org/project/pylibbpf/">pylibbpf</a> on PyPI</span></dd>
+        <dt><a href="https://github.com/pythonbpf/pythonbpf-playground">pythonbpf-playground</a></dt>
+        <dd>The playground above.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="tint" id="talks">
+  <div class="wrap cols">
+    <div>
+      <h2>Talks</h2>
+      <ul class="talks">
+        <li>
+          <span class="when">Sep 2026 · IndiaFOSS, Bengaluru</span>
+          <span class="by">by the authors</span>
+          <strong>PythonBPF: now with loops, custom functions, and more maps!</strong>
+          <span class="small"><a href="https://platform.fossunited.org/c/indiafoss/2026/cfp/299lpkmuqh">abstract</a></span>
+        </li>
+        <li>
+          <span class="when">31 Jan 2026 · FOSDEM, Brussels</span>
+          <span class="by">by the authors</span>
+          <strong>PythonBPF: writing eBPF programs in Python</strong>
+          <span class="small"><a href="https://video.fosdem.org/2026/h1308/T9D8ZR-pythonbpf.mp4">video</a> ·
+            <a href="https://archive.fosdem.org/2026/events/attachments/T9D8ZR-pythonbpf/slides/267045/pythonbpf_zatdatm.pdf">slides</a> ·
+            <a href="https://archive.fosdem.org/2026/schedule/event/T9D8ZR-pythonbpf/">event</a></span>
+        </li>
+        <li>
+          <span class="when">12 Dec 2025 · Linux Plumbers Conference, Tokyo</span>
+          <span class="by">by the authors</span>
+          <strong>Python-BPF: writing eBPF programs in pure Python</strong>
+          <span class="small"><a href="https://www.youtube.com/watch?v=eFVhLnWFxtE">video</a> ·
+            <a href="https://lpc.events/event/19/contributions/2158/attachments/1867/4004/LPC2025_slides.pdf">slides</a> ·
+            <a href="https://youtu.be/GN17VBZYdCY">demos</a> ·
+            <a href="https://lpc.events/event/19/contributions/2158/">event</a></span>
+        </li>
+      </ul>
+      <p class="small">There's also a longer <a href="https://youtu.be/eMyLW8iWbks">demo video</a>.</p>
+    </div>
+    <div>
+      <h2>At PyCon</h2>
+      <ul class="talks others">
+        <li>
+          <span class="when">14 Nov 2026 · PyCon Hong Kong</span>
+          <span class="by">by Nizar Akbar Meilani</span>
+          <strong>Python eBPF: BCC C-String Runtime vs Python-BPF AST Ahead of Time</strong>
+          <span class="small"><a href="https://pretalx.com/pyconhk2026/talk/TQDXBC/">talk</a> ·
+            <a href="https://pycon.hk/2026/en/schedule/">schedule</a></span>
+        </li>
+        <li>
+          <span class="when">18 Oct 2026 · PyCon Taiwan</span>
+          <span class="by">by Nizar Akbar Meilani</span>
+          <strong>Python eBPF: BCC C-String Runtime vs Python-BPF AST Ahead of Time</strong>
+          <span class="small"><a href="https://tw.pycon.org/2026/en-us/conference/talk/380">talk</a> ·
+            <a href="https://github.com/nizarakbarm/pycon-tw-2026-bcc-vs-pythonbpf">slides and benchmarks</a></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="authors">
+  <div class="wrap">
+    <h2>Authors</h2>
+    <div class="cols">
+      <div class="person">
+        <img src="assets/pragyansh.jpg" alt="" width="64" height="64" loading="lazy">
+        <div>
+          <h3>Pragyansh Chaturvedi</h3>
+          <p>Software engineer at Canonical, working on Ubuntu for Raspberry Pi and ARM,
+            and an Ubuntu MOTU. Likes compilers, databases and low-level systems.</p>
+          <p class="small"><a href="https://github.com/r41k0u">GitHub</a> ·
+            <a href="https://people.ubuntu.com/~r41k0u/portfolio/">website</a> ·
+            <a href="https://linkedin.com/in/r41k0u">LinkedIn</a> ·
+            <a href="https://bsky.app/profile/r41k0u.bsky.social">Bluesky</a></p>
+        </div>
+      </div>
+      <div class="person">
+        <img src="assets/varun.png" alt="" width="64" height="64" loading="lazy">
+        <div>
+          <h3>Varun R Mallya</h3>
+          <p>Student at IIT Roorkee. Works on eBPF, Linux networking, profiling and LLVM,
+            contributes to the kernel's BPF subsystem, and did GSoC with GNOME on eBPF in Sysprof.</p>
+          <p class="small"><a href="https://github.com/varun-r-mallya">GitHub</a> ·
+            <a href="https://xeon.me">website</a> ·
+            <a href="https://linkedin.com/in/varun-r-mallya">LinkedIn</a> ·
+            <a href="https://xeon.me/gnome/pythonbpf/">why we built this</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>PythonBPF · Apache-2.0</span>
+    <a href="https://github.com/pythonbpf/pythonbpf.github.io">Source for this page</a>
+  </div>
+</footer>
+
+</body>
+</html>

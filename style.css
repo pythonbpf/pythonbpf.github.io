@@ -1,0 +1,204 @@
+/* Colours come from the bee emblem: navy ring, Python blue, honey yellow. */
+:root {
+  --navy: #1c3d5c;
+  --navy-deep: #142d45;
+  --blue: #3f79ac;
+  --yellow: #f6c445;
+
+  --text: #1b1f24;
+  --muted: #5d6874;
+  --rule: #e3e0d8;
+  --bg: #fdfcf8;
+  --tint: #f4f1e8;
+  --blue-tint: #eaf1f8;
+  --link: #1f5a8f;
+
+  --serif: "Iowan Old Style", "Charter", "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #e6e3dc;
+    --muted: #9c9a92;
+    --rule: #2c3238;
+    --bg: #15191d;
+    --tint: #1a1f24;
+    --blue-tint: #18232f;
+    --link: #8ab8e6;
+    --navy: #13293f;
+    --navy-deep: #0e1f30;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 18px/1.6 var(--serif);
+  -webkit-text-size-adjust: 100%;
+}
+
+.wrap { max-width: 62rem; margin: 0 auto; padding: 0 1rem; }
+@media (min-width: 40rem) { .wrap { padding: 0 1.75rem; } }
+
+a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { text-decoration-color: var(--yellow); text-decoration-thickness: 2px; }
+
+p { margin: 0 0 1rem; }
+code, pre { font-family: var(--mono); font-size: .85rem; }
+:not(pre) > code { background: var(--tint); padding: .1em .3em; border-radius: 3px; }
+
+/* ---------- masthead ---------- */
+.masthead {
+  background: var(--navy);
+  color: #fff;
+  border-bottom: 5px solid var(--yellow);
+}
+.masthead .wrap { padding-top: 2rem; padding-bottom: 1.5rem; }
+.brand { display: flex; align-items: center; gap: 1.1rem; }
+.brand img { width: 84px; height: 84px; flex: none; }
+.wordmark { display: block; height: 40px; width: auto; color: #fff; }
+.brand p { margin: .4rem 0 0; color: #c6d4e2; font-style: italic; }
+
+.masthead nav { margin-top: 1.5rem; font-family: var(--sans); font-size: .9rem; }
+.masthead nav a { color: #fff; text-decoration: none; margin-right: 1.25rem; white-space: nowrap; line-height: 2; }
+.masthead nav a:hover { color: var(--yellow); }
+.masthead nav a.out::after { content: " ↗"; color: var(--yellow); }
+
+@media (max-width: 30rem) {
+  .brand img { width: 60px; height: 60px; }
+  .wordmark { height: 28px; }
+  body { font-size: 17px; }
+}
+
+/* ---------- sections ---------- */
+section { padding: 3rem 0; }
+section.tint { background: var(--tint); }
+section.blue { background: var(--blue-tint); }
+
+h2 {
+  font-size: 1.45rem;
+  line-height: 1.25;
+  margin: 0 0 1.25rem;
+  color: var(--navy);
+}
+@media (prefers-color-scheme: dark) { h2 { color: #f0d27a; } }
+h2 small { font: 400 .95rem var(--sans); color: var(--muted); margin-left: .5rem; }
+
+h3 { font-size: 1.05rem; margin: 0 0 .5rem; }
+
+.cols { display: grid; gap: 2rem 3rem; }
+@media (min-width: 52rem) {
+  .cols { grid-template-columns: 1fr 1fr; }
+  .cols.intro { grid-template-columns: 1fr 1.25fr; align-items: start; }
+}
+.cols > * { min-width: 0; }
+
+/* ---------- code ---------- */
+pre {
+  margin: 0 0 1rem;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+  line-height: 1.55;
+  background: var(--navy-deep);
+  color: #e3ebf3;
+  border-radius: 6px;
+  border-left: 4px solid var(--yellow);
+}
+pre .k { color: #ff9e8a; }
+pre .d { color: var(--yellow); }
+pre .s { color: #a5dba0; }
+pre .f { color: #8fc4f5; }
+pre .n { color: #d7b8ff; }
+pre .p { color: var(--yellow); user-select: none; }
+
+
+/* ---------- playground ---------- */
+.frame {
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg);
+  position: relative;
+  box-shadow: 0 10px 30px -18px rgba(20, 45, 69, .55);
+}
+.frame .bar {
+  background: var(--navy);
+  color: #c6d4e2;
+  font: .75rem/28px var(--sans);
+  text-align: center;
+}
+.frame iframe { display: block; width: 100%; height: 640px; border: 0; }
+.frame-alt { display: none; }
+@media (max-width: 44rem) {
+  .frame { display: none; }
+  .frame-alt { display: block; }
+}
+.caption { font-family: var(--sans); font-size: .85rem; color: var(--muted); margin-top: .75rem; }
+
+/* ---------- lists ---------- */
+ul { padding-left: 1.2rem; margin: 0 0 1rem; }
+li { margin-bottom: .4rem; }
+li::marker { color: var(--blue); }
+
+dl { margin: 0; }
+dt { font-weight: 700; margin-top: .9rem; }
+dt:first-child { margin-top: 0; }
+dd { margin: .1rem 0 0; }
+.small { font-family: var(--sans); font-size: .85rem; color: var(--muted); }
+
+/* ---------- talks ---------- */
+.talks { list-style: none; padding: 0; margin: 0 0 1.5rem; }
+.talks li {
+  position: relative;
+  padding: 0 0 1.2rem 1.4rem;
+  margin: 0;
+  border-left: 2px solid var(--rule);
+}
+.talks li:last-child { padding-bottom: .2rem; }
+.talks li::before {
+  content: "";
+  position: absolute; left: -7px; top: .45rem;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 0 3px var(--bg);
+}
+section.tint .talks li::before { box-shadow: 0 0 0 3px var(--tint); }
+.talks.others li::before { background: var(--yellow); }
+.when {
+  display: block;
+  font: 600 .78rem var(--sans);
+  letter-spacing: .02em;
+  color: var(--blue);
+}
+.talks.others .when { color: #a07a0a; }
+@media (prefers-color-scheme: dark) {
+  .when { color: #8ab8e6; }
+  .talks.others .when { color: #e6c15a; }
+}
+.talks strong { display: block; font-weight: 600; }
+.by { display: block; font: italic .85rem var(--serif); color: var(--muted); margin-bottom: .1rem; }
+
+/* ---------- authors ---------- */
+.person { display: flex; gap: 1rem; }
+.person img {
+  width: 64px; height: 64px; border-radius: 50%; flex: none;
+  border: 3px solid var(--yellow);
+}
+.person p { margin: 0 0 .35rem; }
+
+footer {
+  background: var(--navy);
+  color: #c6d4e2;
+  font-family: var(--sans);
+  font-size: .85rem;
+  padding: 1.25rem 0;
+}
+footer a { color: #fff; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 2rem; }
